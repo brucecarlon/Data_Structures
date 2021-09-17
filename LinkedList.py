@@ -52,13 +52,6 @@ class LinkedList():
         new_node = Node(data)
         new_node.next = prev_node.next
         prev_node.next = new_node
-    def length(self):
-        cur = self.head
-        total = 0
-        while cur.next != None:
-            total += 1
-            cur = cur.next
-        return total
 
     def delete_node(self,key):
         '''
@@ -102,6 +95,15 @@ class LinkedList():
         prev.next = cur_node.next
         cur_node = None
 
+
+    def length(self):
+        cur = self.head
+        total = 0
+        while cur != None:
+            total += 1
+            cur = cur.next
+        return total
+
 if __name__ == '__main__':
     llist = LinkedList()
     llist.append('a')
@@ -113,3 +115,4 @@ if __name__ == '__main__':
     llist.delete_node('e')
     llist.delete_node_at_pos(0)
     llist.print_list()
+    print(llist.length())
