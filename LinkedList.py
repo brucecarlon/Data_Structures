@@ -20,6 +20,9 @@ class LinkedList():
             cur_node = cur_node.next
 
     def append(self,data):
+        '''
+        Inserts new element to end of list
+        '''
         new_node = Node(data)
 
         if self.head == None: # check if list is empty if it is append to the first index
@@ -32,11 +35,17 @@ class LinkedList():
         last_node.next = new_node
 
     def prepend(self,data):
+        '''
+        Inserts new element to start of list
+        '''
         new_node=Node(data)
         new_node.next = self.head
         self.head = new_node
 
     def insert_after_node(self, prev_node,data):
+        '''
+        Inserts element after a given node
+        '''
         if not prev_node:
             print('Previous node is not list')
             return
@@ -52,6 +61,9 @@ class LinkedList():
         return total
 
     def delete_node(self,key):
+        '''
+        Deletes node from list
+        '''
         cur_node = self.head
         #delete a head node
         if cur_node and cur_node.data == key :
