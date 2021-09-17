@@ -1,5 +1,6 @@
 # Create a singly linkedlist
 
+elem = []
 
 class Node():
     def __init__(self,data):
@@ -11,12 +12,12 @@ class Node():
 class LinkedList():
     def __init__(self):
         self.head = None
-
     def print_list(self):
         cur_node = self.head
-        elem = []
+        global elem
         while cur_node != None:
             print(cur_node)
+            elem.append(cur_node)
             cur_node = cur_node.next
 
     def append(self,data):
@@ -24,7 +25,6 @@ class LinkedList():
         Inserts new element to end of list
         '''
         new_node = Node(data)
-
         if self.head == None: # check if list is empty if it is append to the first index
             self.head = new_node
             return
@@ -62,7 +62,7 @@ class LinkedList():
 
     def delete_node(self,key):
         '''
-        Deletes node from list
+        Deletes node with a given data field from list
         '''
         cur_node = self.head
         #delete a head node
@@ -75,17 +75,41 @@ class LinkedList():
         while cur_node != None and cur_node.data != key:
             prev = cur_node
             cur_node = cur_node.next
-
         if cur_node == None:
             return
+
         prev.next = cur_node.next
         cur_node = None
 
-llist = LinkedList()
-llist.append('a')
-llist.append('b')
-llist.prepend('z')
-llist.insert_after_node(llist.head.next,'e')
-llist.delete_node('e')
-llist.print_list()
+    def delete_node_at_pos(self,pos):
+        cur_node = self.head
+        
+        if pos == 0:
+            self.head = cur_node.next
+            cur_node = None
+            return
+        
+        rev = None
+        count = 1
 
+        while cur_node != None and count != pos:
+            prev = cur_node
+            cur_node = cur_node.next
+            count +=1
+        if cur_node == None:
+            return "Position is out of range"
+
+        prev.next = cur_node.next
+        cur_node = None
+
+if __name__ == '__main__':
+    llist = LinkedList()
+    llist.append('a')
+    llist.append('b')
+    llist.prepend('z')
+    llist.prepend('k')
+    llist.prepend('gamma')
+    llist.insert_after_node(llist.head.next,'e')
+    llist.delete_node('e')
+    llist.delete_node_at_pos(0)
+    llist.print_list()
