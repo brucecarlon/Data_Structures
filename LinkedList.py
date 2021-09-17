@@ -9,7 +9,8 @@ class Node():
     def __str__(self):
         return str(self.data)
     
-class LinkedList():
+class SLinkedList():
+    '''Singly linked list'''
     def __init__(self):
         self.head = None
     def print_list(self):
@@ -75,6 +76,7 @@ class LinkedList():
         cur_node = None
 
     def delete_node_at_pos(self,pos):
+        ''' Deletes node at specified position'''
         cur_node = self.head
         
         if pos == 0:
@@ -97,6 +99,7 @@ class LinkedList():
 
 
     def length(self):
+        '''Finds length of linked list'''
         cur = self.head
         total = 0
         while cur != None:
@@ -105,7 +108,7 @@ class LinkedList():
         return total
 
 if __name__ == '__main__':
-    llist = LinkedList()
+    llist = SLinkedList()
     llist.append('a')
     llist.append('b')
     llist.prepend('z')
