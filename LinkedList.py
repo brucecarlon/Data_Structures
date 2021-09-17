@@ -1,6 +1,11 @@
-# Create a singly linkedlist
+'''
+Implementation of a singly linked list data stucture
 
-elem = []
+
+16 September 2021
+@author Bruce Mvubele
+'''
+
 
 class Node():
     def __init__(self,data):
@@ -15,10 +20,8 @@ class SLinkedList():
         self.head = None
     def print_list(self):
         cur_node = self.head
-        global elem
         while cur_node != None:
             print(cur_node)
-            elem.append(cur_node)
             cur_node = cur_node.next
 
     def append(self,data):
