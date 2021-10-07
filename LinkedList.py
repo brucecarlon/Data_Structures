@@ -12,6 +12,7 @@ class Node():
         self.data = data
         self.next = None
     def __str__(self):
+        elem = []
         return str(self.data)
     
 class SLinkedList():
@@ -87,7 +88,7 @@ class SLinkedList():
             cur_node = None
             return
         
-        rev = None
+        prev = None
         count = 1
 
         while cur_node != None and count != pos:
