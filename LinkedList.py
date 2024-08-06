@@ -52,7 +52,7 @@ class SLinkedList():
         Inserts element after a given node
         '''
         if not prev_node:
-            print('Previous node is not list')
+            print('Previous node is not in list')
             return
         new_node = Node(data)
         new_node.next = prev_node.next
