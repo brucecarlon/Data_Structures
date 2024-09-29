@@ -1,125 +1,176 @@
-'''
-Implementation of a singly linked list data stucture
-
-
-16 September 2021
-@author Bruce Mvubele
-'''
-
-
-class Node():
-    def __init__(self,data):
+class Node:
+    def __init__(self, data = None,next = None) -> None:
         self.data = data
-        self.next = None
-    def __str__(self):
-        elem = []
-        return str(self.data)
-    
-class SLinkedList():
-    '''Singly linked list'''
-    def __init__(self):
-        self.head = None
-    def print_list(self):
-        cur_node = self.head
-        while cur_node != None:
-            print(cur_node)
-            cur_node = cur_node.next
+        self.next = next
 
-    def append(self,data):
+class SingleLink_list:
+    
+    def __init__(self) -> None:
+        self. head = None
+ 
+    def print(self) -> str:
+        ''' 
+        Prints the list
+        '''
+        curr_node = self.head
+        s_list =''
+        while curr_node:
+            s_list = s_list + str(curr_node.data)+'-->'
+            curr_node = curr_node.next
+        print(s_list)
+        return s_list
+
+    def search(self,data:str)->None:
+        ''' 
+        Searches for the data inputed
+        '''
+        curr_node = self.head
+        index_:int = 0
+
+        if self.head is None:
+            print(f'{data} not found. List is empty')
+            return
+
+        while curr_node:
+            if curr_node.data != data:
+                curr_node = curr_node.next
+                index_ += 1
+            if curr_node is None:
+                print(f'{data} Not in list')
+                return
+            if curr_node.data == data:
+                print(f'{data} is at index {index_}')
+                return
+        print(f'{data} not in list')
+        return
+    
+    def length(self) -> int:
+        ''' 
+        Returns the length of the string
+        '''
+        curr_node = self.head
+        index_ = 1
+        
+        if self.head is None:
+            print('Length 0')
+            return 0
+
+        while curr_node.next is not None:
+            curr_node = curr_node.next
+            index_ += 1
+
+        print(f'Length {index_}')
+        return index_
+
+    def append(self,data) -> None:
         '''
         Inserts new element to end of list
         '''
         new_node = Node(data)
-        if self.head == None: # check if list is empty if it is append to the first index
+        if self.head is None: # check if list is empty if it is append to the first index
             self.head = new_node
-            return
-
+            return 
         last_node = self.head
-        while last_node.next != None:
+        while last_node.next is not None:
             last_node =  last_node.next
         last_node.next = new_node
+        return
 
-    def prepend(self,data):
+    def prepend(self,data) -> None:
         '''
         Inserts new element to start of list
         '''
         new_node=Node(data)
         new_node.next = self.head
         self.head = new_node
+        return
 
-    def insert_after_node(self, prev_node,data):
+    def insert(self, data, position) -> None:
         '''
-        Inserts element after a given node
+        Inserts data at the index position
         '''
-        if not prev_node:
-            print('Previous node is not in list')
-            return
+        if position > self.length():
+            print('Invalid index')
         new_node = Node(data)
-        new_node.next = prev_node.next
-        prev_node.next = new_node
 
-    def delete_node(self,key):
+        if self.head is None:
+            self.prepend(data) #fix this
+            return
+
+        count = 0
+        curr_node = self.head
+
+        while curr_node:
+            last_node= curr_node
+            curr_node = curr_node.next
+
+            if count == position:
+                last_node.next = new_node
+                new_node.next = curr_node
+                return
+            count += 1
+        return
+
+
+    def pop(self):
         '''
-        Deletes node with a given data field from list
+        Removes last item in list
         '''
-        cur_node = self.head
-        #delete a head node
-        if cur_node and cur_node.data == key :
-            self.head = cur_node.next
-            cur_node = None
-            return
+        last_node = self.head
+        while last_node.next:
+            last_node = last_node.next
+        last_node = None
+        return
 
-        prev = None
-        while cur_node != None and cur_node.data != key:
-            prev = cur_node
-            cur_node = cur_node.next
-        if cur_node == None:
-            return
-
-        prev.next = cur_node.next
-        cur_node = None
-
-    def delete_node_at_pos(self,pos):
-        ''' Deletes node at specified position'''
-        cur_node = self.head
+    def erase(self, index):
+        ''' 
+        Deletes node at the index provided
+        '''
+        curr_node = self.head
+        list_length = self.length()
+        count= 0
         
-        if pos == 0:
-            self.head = cur_node.next
-            cur_node = None
+        if index > list_length:
+            print('invalid index') #raise expection
             return
-        
-        prev = None
-        count = 1
 
-        while cur_node != None and count != pos:
-            prev = cur_node
-            cur_node = cur_node.next
+        while True:
+            last_node = curr_node
+            curr_node = curr_node.next
+            if count == index:
+                last_node.next = curr_node.next
+                return
             count +=1
-        if cur_node == None:
-            return "Position is out of range"
+        return
 
-        prev.next = cur_node.next
-        cur_node = None
-
-
-    def length(self):
-        '''Finds length of linked list'''
-        cur = self.head
-        total = 0
-        while cur != None:
-            total += 1
-            cur = cur.next
-        return total
 
 if __name__ == '__main__':
-    llist = SLinkedList()
-    llist.append('a')
-    llist.append('b')
-    llist.prepend('z')
-    llist.prepend('k')
-    llist.prepend('gamma')
-    llist.insert_after_node(llist.head.next,'e')
-    llist.delete_node('e')
-    llist.delete_node_at_pos(0)
-    llist.print_list()
-    print(llist.length())
+    ll = SingleLink_list()
+    ll.length()
+    ll.search(0)
+    ll.prepend(5)
+    ll.length()
+    ll.append(6)
+    ll.search(6)
+    ll.prepend(456)
+    ll.append(9999)
+    ll.search(9999)
+    ll.search(77)
+    ll.length()
+    ll.print()
+    ll.insert(10,10)
+    ll.erase(2)
+    ll.print()
+    ll.insert('new1',0)
+    ll.insert('new2',2)
+    
+    ll.print()
+    ll.pop()
+    ll.print()
+    ll.length()
+    ll.erase(0)
+    ll.print()
+    ll.erase(0)
+    ll.print()
+    ll.erase(0)
+    ll.print()
